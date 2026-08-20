@@ -1,0 +1,11 @@
+parameters:
+    level: 6
+    paths:
+        - app/Controllers
+        - app/Models
+        - configs
+        - public/index.php
+    bootstrapFiles:
+        - runtime/autoload.php
+    excludePaths:
+        - runtime/storage (?)

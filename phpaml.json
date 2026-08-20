@@ -1,0 +1,17 @@
+{
+    "name": "phpaml-movies-api-demo",
+    "version": "1.3.1",
+    "description": "Read-only REST API for a movie catalog, built with PHPAML",
+    "runtime": {
+        "directory": "runtime",
+        "framework": "0.2.1-beta.1"
+    },
+    "scripts": {
+        "start": "aml serve",
+        "test": "aml test"
+    },
+    "requirements": {
+        "php": "^8.2"
+    },
+    "modules": []
+}

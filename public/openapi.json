@@ -1,0 +1,10 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "PHPAML Movies API", "version": "1.0.0" },
+  "servers": [{ "url": "http://localhost:8910" }],
+  "paths": {
+    "/api/v1/movies": { "get": { "summary": "List and search movies", "parameters": [{ "name": "q", "in": "query", "schema": { "type": "string" } }, { "name": "genre", "in": "query", "schema": { "type": "string" } }, { "name": "page", "in": "query", "schema": { "type": "integer", "minimum": 1 } }, { "name": "per_page", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 50 } }], "responses": { "200": { "description": "Paginated movie collection" } } } },
+    "/api/v1/movies/{id}": { "get": { "summary": "Get one movie", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "Movie" }, "404": { "description": "Movie not found" } } } },
+    "/api/v1/genres": { "get": { "summary": "List genres", "responses": { "200": { "description": "Genre collection" } } } }
+  }
+}
