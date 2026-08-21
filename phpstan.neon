@@ -1,9 +1,8 @@
 parameters:
     level: 6
     paths:
-        - app/Controllers
-        - app/Models
-        - configs
+        - src
+        - database
         - public/index.php
     bootstrapFiles:
         - runtime/autoload.php
