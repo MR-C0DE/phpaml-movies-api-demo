@@ -1,6 +1,6 @@
 # Production deployment
 
-Only `public/` may be exposed by the web server. Never point a document root at the project directory. Keep `.env`, `runtime/`, `app/`, `configs/`, `database/`, and `tests/` outside the public document root.
+Only `public/` may be exposed by the web server. Never point a document root at the project directory. Keep `.env`, `runtime/`, `src/`, `database/`, and `tests/` outside the public document root.
 
 Before deployment:
 

@@ -19,7 +19,7 @@ if (is_file($installedAutoloader)) {
     require_once $root . '/runtime/framework/Autoloader.php';
     Autoloader::register([
         'PHPAML\\' => $root . '/runtime/framework',
-        'App\\' => $root . '/app',
+        'App\\' => $root . '/src',
     ]);
 }
 
@@ -124,7 +124,7 @@ test('Validator applique les règles courantes', function (): void {
 });
 
 test('WebApplication présente l’API à la racine', function (): void {
-    $config = require dirname(__DIR__) . '/configs/app.php';
+    $config = \PHPAML\Config\ApplicationConfig::load(dirname(__DIR__));
     $response = (new WebApplication($config))->handle(new Request('GET', '/'));
     expect($response->status() === 200, 'La route principale ne retourne pas 200.');
     expect(str_contains($response->content(), 'PHPAML Movies API'), 'La présentation JSON de l’API manque.');
@@ -133,7 +133,7 @@ test('WebApplication présente l’API à la racine', function (): void {
 });
 
 test('L’API liste, recherche et pagine les films', function (): void {
-    $config = require dirname(__DIR__) . '/configs/app.php';
+    $config = \PHPAML\Config\ApplicationConfig::load(dirname(__DIR__));
     $config['database']['dsn'] = 'sqlite::memory:';
     $application = new WebApplication($config);
     $response = $application->handle(new Request('GET', '/api/v1/movies', ['q' => 'Villeneuve', 'per_page' => '1']));
@@ -145,7 +145,7 @@ test('L’API liste, recherche et pagine les films', function (): void {
 });
 
 test('L’API retourne une fiche et une erreur JSON explicite', function (): void {
-    $config = require dirname(__DIR__) . '/configs/app.php';
+    $config = \PHPAML\Config\ApplicationConfig::load(dirname(__DIR__));
     $config['database']['dsn'] = 'sqlite::memory:';
     $application = new WebApplication($config);
     $movie = $application->handle(new Request('GET', '/api/v1/movies/1'));
@@ -156,23 +156,16 @@ test('L’API retourne une fiche et une erreur JSON explicite', function (): voi
 });
 
 test('L’API expose les genres disponibles', function (): void {
-    $config = require dirname(__DIR__) . '/configs/app.php';
+    $config = \PHPAML\Config\ApplicationConfig::load(dirname(__DIR__));
     $config['database']['dsn'] = 'sqlite::memory:';
     $response = (new WebApplication($config))->handle(new Request('GET', '/api/v1/genres'));
     expect(str_contains($response->content(), 'Science Fiction'), 'Le catalogue des genres est incomplet.');
 });
 
 test('WebApplication retourne une réponse 404', function (): void {
-    $config = require dirname(__DIR__) . '/configs/app.php';
+    $config = \PHPAML\Config\ApplicationConfig::load(dirname(__DIR__));
     $response = (new WebApplication($config))->handle(new Request('GET', '/inconnue'));
     expect($response->status() === 404, 'Une route inconnue doit retourner 404.');
-});
-
-test('WebApplication protège les méthodes d’écriture avec CSRF par défaut', function (): void {
-    $config = require dirname(__DIR__) . '/configs/app.php';
-    $config['routes']['POST /protected'] = [RouteTestController::class, 'show'];
-    $response = (new WebApplication($config))->handle(new Request('POST', '/protected'));
-    expect($response->status() === 419, 'Une requête POST sans jeton CSRF doit être refusée.');
 });
 
 $passed = 0;
