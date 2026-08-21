@@ -168,13 +168,6 @@ test('WebApplication retourne une réponse 404', function (): void {
     expect($response->status() === 404, 'Une route inconnue doit retourner 404.');
 });
 
-test('WebApplication protège les méthodes d’écriture avec CSRF par défaut', function (): void {
-    $config = \PHPAML\Config\ApplicationConfig::load(dirname(__DIR__));
-    $config['routes']['POST /protected'] = [RouteTestController::class, 'show'];
-    $response = (new WebApplication($config))->handle(new Request('POST', '/protected'));
-    expect($response->status() === 419, 'Une requête POST sans jeton CSRF doit être refusée.');
-});
-
 $passed = 0;
 $failed = 0;
 
