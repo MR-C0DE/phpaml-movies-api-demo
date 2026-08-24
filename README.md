@@ -66,3 +66,11 @@ aml test
 ```
 
 The demo intentionally contains no HTML interface. SQLite is created inside `runtime/storage/` on first access and populated with a small catalog.
+
+## Contributing
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md), the [Code of Conduct](CODE_OF_CONDUCT.md), and the [security policy](SECURITY.md) before participating.
+
+## License
+
+The application is open-source software licensed under the [MIT License](LICENSE).
